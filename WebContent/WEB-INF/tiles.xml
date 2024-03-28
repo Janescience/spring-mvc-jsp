@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+    <definition name="base.definition" template="/WEB-INF/jsp/layout.jsp">
+        <put-attribute name="title" value="KK UL Callback System." type="string"/>
+        <put-attribute name="header" value="/WEB-INF/templates/header.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/templates/menu.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/WEB-INF/templates/footer.jsp" />
+    </definition>
+
+	<definition name="main" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/templates/home.jsp" />
+	</definition>
+	
+	<definition name="userMaintenance" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/jsp/userMaintenance.jsp" />
+	</definition>
+	 
+	<definition name="KK_Document" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/jsp/KK_Document.jsp" />
+	</definition>
+	<definition name="verifyDocument" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/jsp/verifyDocument.jsp" />
+	</definition>
+	<definition name="KK_Document_History" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/jsp/KK_Document_History.jsp" />
+	</definition>
+	<definition name="resetPassword" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/jsp/resetPassword.jsp" />
+	</definition>
+	<definition name="BillpaymentNotice" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/jsp/BillpaymentNotice.jsp" />
+	</definition>
+	<definition name="RejectByAppno" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/jsp/RejectByAppno.jsp" />
+	</definition>
+	<definition name="KK_UL_Callback" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/jsp/KK_UL_Callback.jsp" />
+	</definition>
+	<definition name="KK_OL_Callback" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/jsp/KK_OL_Callback.jsp" />
+	</definition>
+</tiles-definitions>

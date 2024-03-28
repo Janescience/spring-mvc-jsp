@@ -1,0 +1,25 @@
+@CHARSET "UTF-8";
+html{
+	-moz-transform: scale(1.25, 1.25); /* Moz-browsers */
+    zoom: 1.25; /* Other non-webkit browsers */
+    zoom: 125%; /* Webkit browsers */
+}
+td {
+	font-family: "verdana", "arial", "helvetica", "sans-serif"; color: #993333; font-size: 8pt
+}
+
+body.default {
+	background-color: #666666
+}
+
+.table_border {
+	border-bottom: #b22c1b 1px solid; border-left: #b22c1b 1px solid; border-top: #b22c1b 1px solid; border-right: #b22c1b 1px solid
+}
+
+.indent {
+	padding-bottom: 2px; line-height: normal; padding-left: 5px; padding-right: 4px; padding-top: 2px
+}
+
+.link_bottom {
+	text-align: justify; padding-bottom: 0px; font-style: normal; text-indent: 0pt; padding-left: 0px; padding-right: 4px; font-family: "verdana", "arial", "helvetica", "sans-serif"; letter-spacing: normal; color: #ffffff; font-size: 9px; word-spacing: normal; text-decoration: none; padding-top: 0px
+}

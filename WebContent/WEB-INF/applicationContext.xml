@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- Declare a JPA entityManagerFactory-->
+	<bean id="emfMIS"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation" value="classpath*:META-INF/persistence.xml"></property>
+		<property name="persistenceUnitName" value="KK_UL_Callback" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
+				<property name="showSql" value="true" />
+				<property name="databasePlatform" value="org.eclipse.persistence.platform.database.SQLServerPlatform" />
+			</bean>
+		</property>
+		<property name="loadTimeWeaver">
+			<bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
+		</property>
+	</bean>
+	<bean id="emfKKGENBIZ"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation" value="classpath*:META-INF/persistence.xml"></property>
+		<property name="persistenceUnitName" value="KKGENBIZ" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
+				<property name="showSql" value="true" />
+				<property name="databasePlatform" value="org.eclipse.persistence.platform.database.SQLServerPlatform" />
+			</bean>
+		</property>
+		<property name="loadTimeWeaver">
+			<bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
+		</property>
+	</bean>
+	
+	<!-- Declare a JDBC entityManagerFactory-->
+	<bean id="kkdcDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/jdbc/kkUlCallbackDB" />
+        <property name="lookupOnStartup" value="true" />
+        <property name="cache" value="true" />
+        <property name="proxyInterface" value="javax.sql.DataSource" />
+    </bean>
+    <bean id="kkgenbizDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/jdbc/kkgenbizDB" />
+        <property name="lookupOnStartup" value="true" />
+        <property name="cache" value="true" />
+        <property name="proxyInterface" value="javax.sql.DataSource" />
+    </bean>
+	<bean id="crmDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/jdbc/crmDB" />
+        <property name="lookupOnStartup" value="true" />
+        <property name="cache" value="true" />
+        <property name="proxyInterface" value="javax.sql.DataSource" />
+    </bean>
+	
+	<bean id="appDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/jdbc/appDB" />
+        <property name="lookupOnStartup" value="true" />
+        <property name="cache" value="true" />
+        <property name="proxyInterface" value="javax.sql.DataSource" />
+    </bean>
+	
+	<bean id="dwDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/jdbc/dwDB" />
+        <property name="lookupOnStartup" value="true" />
+        <property name="cache" value="true" />
+        <property name="proxyInterface" value="javax.sql.DataSource" />
+    </bean>
+
+
+	<!-- Declare a transaction manager-->
+	<bean id="txManagerCMS" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="emfMIS" />
+	</bean>
+	<bean id="txManagerKKGENBIZ" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="emfKKGENBIZ" />
+	</bean>
+	<bean id="txManagerCRM" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="crmDataSource" />
+	</bean>
+	
+	<bean id="txManagerApp" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="appDataSource" />
+	</bean>
+	
+	<bean id="txManagerDw" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="appDataSource" />
+	</bean>
+    
+    <!-- Declare a JDBC Template-->
+	<bean id="appJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"> 
+    	<property name="dataSource" ref="appDataSource"/>
+    </bean>
+    
+	<bean id="crmJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"> 
+    	<property name="dataSource" ref="crmDataSource"/>
+    </bean>
+    
+	<bean id="dwJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"> 
+    	<property name="dataSource" ref="dwDataSource"/>
+    </bean>
+    
+	<bean id="cmsJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"> 
+    	<property name="dataSource" ref="kkdcDataSource"/>
+    </bean>
+   	<bean id="kkgenbizJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"> 
+    	<property name="dataSource" ref="kkgenbizDataSource"/>
+    </bean> 
+    <bean id="crmDao" class="com.genth.kkdc.dao.impl.CRMDaoImpl">
+    	<property name="appJdbcTemplate" ref="appJdbcTemplate"></property>
+    	<property name="cmsJdbcTemplate" ref="cmsJdbcTemplate"></property>
+    	<property name="crmJdbcTemplate" ref="crmJdbcTemplate"></property>
+    	<property name="dwJdbcTemplate" ref="dwJdbcTemplate"></property> 
+    	<property name="kkgenbizJdbcTemplate" ref="kkgenbizJdbcTemplate"></property> 
+    </bean>
+ 
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+<!-- 
+	<tx:annotation-driven mode="proxy" transaction-manager="txManagerCMS" />
+	<tx:annotation-driven mode="proxy" transaction-manager="txManagerCRM" />
+	<tx:annotation-driven mode="proxy" transaction-manager="txManagerApp" />
+	<tx:annotation-driven mode="proxy" transaction-manager="txManagerDw" />
+	<tx:annotation-driven mode="proxy" transaction-manager="txManagerKKGENBIZ" />
+ -->
+
+	<tx:annotation-driven mode="proxy" transaction-manager="txManagerCMS" />
+	<tx:annotation-driven mode="proxy" transaction-manager="txManagerKKGENBIZ" />
+	
+	<!-- This required so that Spring can recognize our annotated beans -->
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.genth.kkdc" />
+	<context:component-scan base-package="org.springframework.jdbc.datasource" />
+
+	<!-- Configures the annotation-driven Spring MVC Controller programming 
+		model. Note that, with Spring 3.0, this tag works in Servlet MVC only! -->
+	<mvc:annotation-driven />
+</beans>

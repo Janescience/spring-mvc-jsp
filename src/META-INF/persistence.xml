@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	
+	<persistence-unit name="KK_UL_Callback" transaction-type="JTA">
+		<description>KK Document Control System</description>
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<jta-data-source>jdbc/kkUlCallbackDB</jta-data-source>
+		 
+		<class>com.genth.kkdc.domain.Role</class>
+		<class>com.genth.kkdc.domain.User</class>
+		<class>com.genth.kkdc.domain.UserRole</class>
+		<class>com.genth.kkdc.domain.PasswordStatus</class>
+		<class>com.genth.kkdc.domain.Status</class>
+		<class>com.genth.kkdc.domain.KK_Document</class>
+		<class>com.genth.kkdc.domain.KK_UL_Callback</class>
+		<class>com.genth.kkdc.domain.KK_Document_CTRL</class>
+		<class>com.genth.kkdc.domain.KK_Document_Log</class>
+		<class>com.genth.kkdc.domain.KK_UL_Funds_Selection</class>
+		<class>com.genth.kkdc.domain.KK_OL_Callback</class>
+				
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+			<property name="eclipselink.jdbc.native-sql" value="true"/>
+			<property name="eclipselink.target-database" value="SQLServer"/>
+			<property name="eclipselink.weaving" value="false"/>
+			<property name="eclipselink.query-results-cache" value="false"/>
+		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="KKGENBIZ" transaction-type="JTA">
+		<description>KK Document Control System</description>
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<jta-data-source>jdbc/kkgenbizDB</jta-data-source>
+		 
+		<class>com.genth.kkdc.domain.KK_Document_ForKKGENBIZ</class>
+		<class>com.genth.kkdc.domain.KK_Document_Log_ForKKGENBIZ</class>
+				
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+			<property name="eclipselink.jdbc.native-sql" value="true"/>
+			<property name="eclipselink.target-database" value="SQLServer"/>
+			<property name="eclipselink.weaving" value="false"/>
+			<property name="eclipselink.query-results-cache" value="false"/>
+		</properties>
+	</persistence-unit>
+</persistence>
